@@ -6,7 +6,10 @@ import UserImg from "components/common/UserImg";
 import Button from "components/common/Button";
 import CommonModal from "components/common/CommonModal";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteFanLetter, editFanLetter } from "../redux/modules/fanLetters";
+import {
+  deleteFanLetter,
+  editFanLetter,
+} from "../redux/modules/fanLetterSlice";
 
 function Detail() {
   const { id } = useParams();

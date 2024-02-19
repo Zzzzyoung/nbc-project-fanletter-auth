@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Button from "../common/Button";
 import CommonModal from "../common/CommonModal";
 import { useDispatch } from "react-redux";
-import { addFanLetter } from "../../redux/modules/fanLetters";
+import { addFanLetter } from "../../redux/modules/fanLetterSlice";
 
 function FanLetterForm() {
   const [nickname, setNickname] = useState("");
@@ -55,7 +55,7 @@ function FanLetterForm() {
   // 제출 모달창 확인
   const confirmSubmitModal = () => {
     const newFanLetter = {
-      createdAt: new Date(),
+      createdAt: new Date().toString(),
       nickname,
       avatar: null,
       content,

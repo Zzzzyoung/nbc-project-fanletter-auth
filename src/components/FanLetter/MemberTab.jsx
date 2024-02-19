@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { selectMember } from "../../redux/modules/member";
+import { selectMember } from "../../redux/modules/memberSlice";
 
 const aespa = [
   { id: 1, name: "카리나" },
