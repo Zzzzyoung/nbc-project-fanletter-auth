@@ -7,7 +7,7 @@ function Login() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
-  const [showLogin, setshowLogin] = useState(true);
+  const [showLogin, setShowLogin] = useState(true);
   const [isIdValid, setIsIdValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isNicknameValid, setIsNicknameValid] = useState(false);
@@ -44,6 +44,11 @@ function Login() {
       alert("로그인 성공!");
     } else {
       // 회원가입
+      alert("회원가입 성공!");
+      setShowLogin(true);
+      setId("");
+      setPassword("");
+      setNickname("");
     }
   };
 
@@ -85,7 +90,7 @@ function Login() {
         <StToggleText>
           <span
             onClick={() => {
-              setshowLogin(!showLogin);
+              setShowLogin(!showLogin);
             }}
           >
             {showLogin ? "회원가입" : "로그인"}
