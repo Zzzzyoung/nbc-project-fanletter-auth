@@ -13,6 +13,8 @@ function Login() {
           <input
             type="text"
             placeholder="아이디 (4~10글자)"
+            minLength={4}
+            maxLength={10}
             value={id}
             onChange={(e) => {
               setId(e.target.value);
@@ -22,6 +24,8 @@ function Login() {
           <input
             type="password"
             placeholder="비밀번호 (4~15글자)"
+            minLength={4}
+            maxLength={15}
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
