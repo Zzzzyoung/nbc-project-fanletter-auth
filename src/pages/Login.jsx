@@ -38,14 +38,6 @@ function Login() {
     ? !isIdValid || !isPasswordValid
     : !isIdValid || !isPasswordValid || !isNicknameValid;
 
-  useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-
-    if (accessToken) {
-      dispatch(login());
-    }
-  }, [dispatch]);
-
   // 로그인 & 회원가입
   const onSubmitHandler = async (e) => {
     e.preventDefault();

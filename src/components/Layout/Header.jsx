@@ -35,6 +35,7 @@ const Title = styled.figure`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 5px;
   width: 200px;
   height: 150px;
 

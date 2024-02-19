@@ -75,11 +75,11 @@ function Detail() {
 
   return (
     <Container>
-      <Link to="/">
+      {/* <Link to="/">
         <HomeBtn>
           <Button btnName="홈으로" />
         </HomeBtn>
-      </Link>
+      </Link> */}
 
       <DetailFanLetterItemWrapper>
         <UserHeader>
@@ -153,11 +153,11 @@ const Container = styled.div`
   );
 `;
 
-const HomeBtn = styled.div`
-  position: absolute;
-  top: 50px;
-  left: 70px;
-`;
+// const HomeBtn = styled.div`
+//   position: absolute;
+//   top: 50px;
+//   left: 70px;
+// `;
 
 const DetailFanLetterItemWrapper = styled.section`
   background-color: transparent;
@@ -165,8 +165,8 @@ const DetailFanLetterItemWrapper = styled.section`
   border-radius: 10px;
   color: black;
   height: 500px;
-  width: 800px;
-  margin-top: 10px;
+  width: 820px;
+  padding: 0px 10px;
 `;
 
 const UserHeader = styled.header`

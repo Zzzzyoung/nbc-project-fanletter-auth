@@ -12,6 +12,7 @@ const StBtn = styled.button`
   padding: 8px 12px;
   border-radius: 5px;
   font-size: 13px;
+  transition: background-color 0.3s ease;
   cursor: pointer;
 
   &:hover {
