@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/modules/authSlice";
 import styled from "styled-components";
@@ -33,10 +33,20 @@ function Login() {
     setIsNicknameValid(value.length >= 1 && value.length <= 10);
   };
 
+  // 입력값 유효성 검사
   const inputValidCondition = showLogin
     ? !isIdValid || !isPasswordValid
     : !isIdValid || !isPasswordValid || !isNicknameValid;
 
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (accessToken) {
+      dispatch(login());
+    }
+  }, [dispatch]);
+
+  // 로그인 & 회원가입
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
