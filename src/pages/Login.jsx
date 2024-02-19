@@ -1,14 +1,17 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/modules/authSlice";
 import styled from "styled-components";
 
 function Login() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
-  const [isLogin, setIsLogin] = useState(true);
+  const [showLogin, setshowLogin] = useState(true);
   const [isIdValid, setIsIdValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isNicknameValid, setIsNicknameValid] = useState(false);
+  const dispatch = useDispatch();
 
   const onChangeIdHandler = (e) => {
     const value = e.target.value;
@@ -28,14 +31,24 @@ function Login() {
     setIsNicknameValid(value.length >= 1 && value.length <= 10);
   };
 
-  const inputValidCondition = isLogin
+  const inputValidCondition = showLogin
     ? !isIdValid || !isPasswordValid
     : !isIdValid || !isPasswordValid || !isNicknameValid;
 
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+
+    if (showLogin) {
+      // 로그인
+    } else {
+      // 회원가입
+    }
+  };
+
   return (
     <StLoginContainer>
-      <StLoginForm>
-        <STLoginTitle>{isLogin ? "로그인" : "회원가입"}</STLoginTitle>
+      <StLoginForm onSubmit={onSubmitHandler}>
+        <STLoginTitle>{showLogin ? "로그인" : "회원가입"}</STLoginTitle>
         <StLoginInput>
           <input
             type="text"
@@ -53,7 +66,7 @@ function Login() {
             value={password}
             onChange={onChangePasswordHandler}
           />
-          {!isLogin && (
+          {!showLogin && (
             <input
               type="text"
               placeholder="닉네임 (1~10글자)"
@@ -65,15 +78,15 @@ function Login() {
           )}
         </StLoginInput>
         <StLoginButton disabled={inputValidCondition}>
-          {isLogin ? "로그인" : "회원가입"}
+          {showLogin ? "로그인" : "회원가입"}
         </StLoginButton>
         <StToggleText>
           <span
             onClick={() => {
-              setIsLogin(!isLogin);
+              setshowLogin(!showLogin);
             }}
           >
-            {isLogin ? "회원가입" : "로그인"}
+            {showLogin ? "회원가입" : "로그인"}
           </span>
         </StToggleText>
       </StLoginForm>
