@@ -6,6 +6,31 @@ function Login() {
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
   const [isLogin, setIsLogin] = useState(true);
+  const [isIdValid, setIsIdValid] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isNicknameValid, setIsNicknameValid] = useState(false);
+
+  const onChangeIdHandler = (e) => {
+    const value = e.target.value;
+    setId(value);
+    setIsIdValid(value.length >= 4 && value.length <= 10);
+  };
+
+  const onChangePasswordHandler = (e) => {
+    const value = e.target.value;
+    setPassword(value);
+    setIsPasswordValid(value.length >= 4 && value.length <= 15);
+  };
+
+  const onChangeNicknameHandler = (e) => {
+    const value = e.target.value;
+    setNickname(value);
+    setIsNicknameValid(value.length >= 1 && value.length <= 10);
+  };
+
+  const inputValidCondition = isLogin
+    ? !isIdValid || !isPasswordValid
+    : !isIdValid || !isPasswordValid || !isNicknameValid;
 
   return (
     <StLoginContainer>
@@ -18,9 +43,7 @@ function Login() {
             minLength={4}
             maxLength={10}
             value={id}
-            onChange={(e) => {
-              setId(e.target.value);
-            }}
+            onChange={onChangeIdHandler}
           />
           <input
             type="password"
@@ -28,9 +51,7 @@ function Login() {
             minLength={4}
             maxLength={15}
             value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
+            onChange={onChangePasswordHandler}
           />
           {!isLogin && (
             <input
@@ -39,13 +60,13 @@ function Login() {
               minLength={1}
               maxLength={10}
               value={nickname}
-              onChange={(e) => {
-                setNickname(e.target.value);
-              }}
+              onChange={onChangeNicknameHandler}
             />
           )}
         </StLoginInput>
-        <StLoginButton>{isLogin ? "로그인" : "회원가입"}</StLoginButton>
+        <StLoginButton disabled={inputValidCondition}>
+          {isLogin ? "로그인" : "회원가입"}
+        </StLoginButton>
         <StToggleText>
           <span
             onClick={() => {
@@ -104,7 +125,7 @@ const StLoginInput = styled.div`
 const StLoginButton = styled.button`
   padding: 10px;
   font-size: 18px;
-  background-color: darkgray;
+  background-color: ${(props) => (props.disabled ? "darkgray" : "black")};
   color: white;
   border: 1px solid gray;
   transition: background-color 0.3s ease;
