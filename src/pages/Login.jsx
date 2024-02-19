@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../redux/modules/authSlice";
 import styled from "styled-components";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 function Login() {
   const [id, setId] = useState("");
@@ -36,20 +37,51 @@ function Login() {
     ? !isIdValid || !isPasswordValid
     : !isIdValid || !isPasswordValid || !isNicknameValid;
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
 
     if (showLogin) {
       // 로그인
-      dispatch(login());
-      toast.success("로그인 성공!");
+      try {
+        const { data } = await axios.post(
+          "https://moneyfulpublicpolicy.co.kr/login",
+          {
+            id,
+            password,
+          }
+        );
+
+        console.log("data", data);
+
+        if (data.success) {
+          dispatch(login());
+          toast.success("로그인 성공!");
+        }
+      } catch (error) {
+        console.error("error", error);
+        toast.error(error.response.data.message);
+      }
     } else {
       // 회원가입
-      setShowLogin(true);
-      setId("");
-      setPassword("");
-      setNickname("");
-      toast.success("회원가입 성공!");
+      try {
+        const { data } = await axios.post(
+          "https://moneyfulpublicpolicy.co.kr/register",
+          { id, password, nickname }
+        );
+
+        console.log("data", data);
+
+        if (data.success) {
+          setShowLogin(true);
+          setId("");
+          setPassword("");
+          setNickname("");
+          toast.success("회원가입 성공!");
+        }
+      } catch (error) {
+        console.error("error", error);
+        toast.error(error.response.data.message);
+      }
     }
   };
 
