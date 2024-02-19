@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/modules/authSlice";
 import styled from "styled-components";
+import { toast } from "react-toastify";
 
 function Login() {
   const [id, setId] = useState("");
@@ -41,14 +42,14 @@ function Login() {
     if (showLogin) {
       // 로그인
       dispatch(login());
-      alert("로그인 성공!");
+      toast.success("로그인 성공!");
     } else {
       // 회원가입
-      alert("회원가입 성공!");
       setShowLogin(true);
       setId("");
       setPassword("");
       setNickname("");
+      toast.success("회원가입 성공!");
     }
   };
 
