@@ -4,11 +4,13 @@ import styled from "styled-components";
 function Login() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [isLogin, setIsLogin] = useState(true);
 
   return (
     <StLoginContainer>
       <StLoginForm>
-        <STLoginTitle>로그인</STLoginTitle>
+        <STLoginTitle>{isLogin ? "로그인" : "회원가입"}</STLoginTitle>
         <StLoginInput>
           <input
             type="text"
@@ -20,7 +22,6 @@ function Login() {
               setId(e.target.value);
             }}
           />
-          <br />
           <input
             type="password"
             placeholder="비밀번호 (4~15글자)"
@@ -31,10 +32,28 @@ function Login() {
               setPassword(e.target.value);
             }}
           />
+          {!isLogin && (
+            <input
+              type="text"
+              placeholder="닉네임 (1~10글자)"
+              minLength={1}
+              maxLength={10}
+              value={nickname}
+              onChange={(e) => {
+                setNickname(e.target.value);
+              }}
+            />
+          )}
         </StLoginInput>
-        <StLoginButton>로그인</StLoginButton>
+        <StLoginButton>{isLogin ? "로그인" : "회원가입"}</StLoginButton>
         <StToggleText>
-          <span>회원가입</span>
+          <span
+            onClick={() => {
+              setIsLogin(!isLogin);
+            }}
+          >
+            {isLogin ? "회원가입" : "로그인"}
+          </span>
         </StToggleText>
       </StLoginForm>
     </StLoginContainer>
@@ -60,21 +79,22 @@ const StLoginForm = styled.form`
   background-color: white;
   border-radius: 10px;
   width: 400px;
+  user-select: none;
 `;
 
 const STLoginTitle = styled.h2`
   font-size: 30px;
   font-weight: 600;
-  margin: 8px 0px 5px 0px;
+  margin-top: 10px;
 `;
 
 const StLoginInput = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
 
   & input {
-    padding: 7px 5px;
+    padding: 8px 5px;
     border: none;
     border-bottom: 1px solid darkgray;
     outline: none;
@@ -87,7 +107,12 @@ const StLoginButton = styled.button`
   background-color: darkgray;
   color: white;
   border: 1px solid gray;
+  transition: background-color 0.3s ease;
   cursor: pointer;
+
+  &:hover {
+    background-color: lightgray;
+  }
 `;
 
 const StToggleText = styled.div`
@@ -96,6 +121,11 @@ const StToggleText = styled.div`
   color: darkgray;
 
   & span {
+    transition: background-color 0.3s ease;
     cursor: pointer;
+
+    &:hover {
+      color: black;
+    }
   }
 `;
