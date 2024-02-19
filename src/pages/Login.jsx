@@ -40,6 +40,8 @@ function Login() {
 
     if (showLogin) {
       // 로그인
+      dispatch(login());
+      alert("로그인 성공!");
     } else {
       // 회원가입
     }
