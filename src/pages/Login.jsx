@@ -54,6 +54,8 @@ function Login() {
         console.log("data", data);
 
         if (data.success) {
+          localStorage.setItem("accessToken", data.accessToken);
+
           dispatch(login());
           toast.success("로그인 성공!");
         }
