@@ -3,19 +3,18 @@ import { v4 as uuid } from "uuid";
 import styled from "styled-components";
 import Button from "../common/Button";
 import CommonModal from "../common/CommonModal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addFanLetter } from "../../redux/modules/fanLetterSlice";
 
 function FanLetterForm() {
-  const [nickname, setNickname] = useState("");
   const [content, setContent] = useState("");
   const [member, setMember] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
-
-  const handleNickNameChange = (event) => {
-    setNickname(event.target.value);
-  };
+  const { avatar, nickname, userId } = useSelector((state) => state.auth);
+  console.log(avatar);
+  console.log(nickname);
+  console.log(userId);
 
   const handleContentChange = (event) => {
     setContent(event.target.value);
@@ -41,9 +40,7 @@ function FanLetterForm() {
     event.preventDefault();
 
     // 유효성 검사
-    if (!nickname.trim()) {
-      return alert("닉네임을 입력하세요.");
-    } else if (nickname.trim() && !content.trim()) {
+    if (!content.trim()) {
       return alert("내용을 입력하세요.");
     } else if (!member) {
       return alert("멤버를 입력하세요.");
@@ -57,14 +54,13 @@ function FanLetterForm() {
     const newFanLetter = {
       createdAt: new Date().toString(),
       nickname,
-      avatar: null,
+      avatar,
       content,
       writedTo: member,
       id: uuid(),
     };
 
     dispatch(addFanLetter(newFanLetter));
-    setNickname("");
     setContent("");
     setMember("");
     closeModal();
@@ -77,15 +73,7 @@ function FanLetterForm() {
     <Form onSubmit={submitFanLetter}>
       <FormInput>
         <label>닉네임 :&nbsp;</label>
-        <input
-          type="text"
-          name="nickname"
-          placeholder="최대 20글자까지 작성할 수 있습니다."
-          maxLength={20}
-          autoFocus
-          value={nickname}
-          onChange={handleNickNameChange}
-        />
+        <p>{nickname}</p>
       </FormInput>
       <FormInput>
         <label>내용 :&nbsp;</label>
@@ -141,6 +129,7 @@ const Form = styled.form`
   background-color: transparent;
   border: 1px solid white;
   border-radius: 10px;
+  font-weight: 600;
 `;
 
 const FormInput = styled.div`

@@ -2,7 +2,6 @@ import FanLetterForm from "components/FanLetter/FanLetterForm";
 import FanLetterList from "components/FanLetter/FanLetterList";
 import Footer from "components/Layout/Footer";
 import Header from "components/Layout/Header";
-import Layout from "components/Layout/Layout";
 import styled from "styled-components";
 
 function Home() {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/modules/authSlice";
 import styled from "styled-components";
@@ -51,11 +51,11 @@ function Login() {
         });
 
         console.log("data", data);
+        const { accessToken, avatar, nickname, userId } = data;
+        console.log("nickname", nickname);
 
         if (data.success) {
-          localStorage.setItem("accessToken", data.accessToken);
-
-          dispatch(login());
+          dispatch(login(accessToken, avatar, nickname, userId));
           toast.success("로그인 성공!");
         }
       } catch (error) {
