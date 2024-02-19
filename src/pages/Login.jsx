@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../redux/modules/authSlice";
 import styled from "styled-components";
 import { toast } from "react-toastify";
-import axios from "axios";
+import api from "../axios/api";
 
 function Login() {
   const [id, setId] = useState("");
@@ -53,13 +53,10 @@ function Login() {
     if (showLogin) {
       // 로그인
       try {
-        const { data } = await axios.post(
-          "https://moneyfulpublicpolicy.co.kr/login",
-          {
-            id,
-            password,
-          }
-        );
+        const { data } = await api.post("/login", {
+          id,
+          password,
+        });
 
         console.log("data", data);
 
@@ -76,10 +73,11 @@ function Login() {
     } else {
       // 회원가입
       try {
-        const { data } = await axios.post(
-          "https://moneyfulpublicpolicy.co.kr/register",
-          { id, password, nickname }
-        );
+        const { data } = await api.post("/register", {
+          id,
+          password,
+          nickname,
+        });
 
         console.log("data", data);
 
