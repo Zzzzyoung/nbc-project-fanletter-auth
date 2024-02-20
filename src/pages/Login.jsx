@@ -52,10 +52,9 @@ function Login() {
 
         console.log("data", data);
         const { accessToken, avatar, nickname, userId } = data;
-        console.log("nickname", nickname);
 
         if (data.success) {
-          dispatch(login(accessToken, avatar, nickname, userId));
+          dispatch(login({ accessToken, avatar, nickname, userId })); // action.payload에 객체로 넘겨주기
           toast.success("로그인 성공!");
         }
       } catch (error) {
