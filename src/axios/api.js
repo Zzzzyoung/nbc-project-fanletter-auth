@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const instance = axios.create({
+const api = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
 });
 
-instance.interceptors.request.use(
+api.interceptors.request.use(
   // 요청을 보내기 전 수행되는 함수
   function (config) {
     console.log("인터셉터 요청 성공!");
@@ -18,7 +18,7 @@ instance.interceptors.request.use(
   }
 );
 
-instance.interceptors.response.use(
+api.interceptors.response.use(
   // 응답을 내보내기 전 수행되는 함수
   function (response) {
     console.log("인터셉트 응답 성공!");
@@ -32,4 +32,4 @@ instance.interceptors.response.use(
   }
 );
 
-export default instance;
+export default api;

@@ -4,17 +4,14 @@ import styled from "styled-components";
 import Button from "../common/Button";
 import CommonModal from "../common/CommonModal";
 import { useDispatch, useSelector } from "react-redux";
-import { addFanLetter } from "../../redux/modules/fanLetterSlice";
+import { __addFanLetter } from "../../redux/modules/fanLetterSlice";
 
 function FanLetterForm() {
+  const dispatch = useDispatch();
   const [content, setContent] = useState("");
   const [member, setMember] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const dispatch = useDispatch();
   const { avatar, nickname, userId } = useSelector((state) => state.auth);
-  console.log(avatar);
-  console.log(nickname);
-  console.log(userId);
 
   const handleContentChange = (event) => {
     setContent(event.target.value);
@@ -58,9 +55,10 @@ function FanLetterForm() {
       content,
       writedTo: member,
       id: uuid(),
+      userId,
     };
 
-    dispatch(addFanLetter(newFanLetter));
+    dispatch(__addFanLetter(newFanLetter));
     setContent("");
     setMember("");
     closeModal();

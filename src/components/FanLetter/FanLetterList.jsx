@@ -1,14 +1,21 @@
 import FanLetterItem from "./FanLetterItem";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { __getFanLetter } from "../../redux/modules/fanLetterSlice";
 
 function FanLetterList() {
+  const dispatch = useDispatch();
   const selectedMember = useSelector((state) => state.member);
-  const fanLetters = useSelector((state) => state.fanLetters);
+  const fanLetters = useSelector((state) => state.fanLetters.letters);
 
   const filteredFanLetterItem = fanLetters.filter((item) => {
     return item.writedTo === selectedMember;
   });
+
+  useEffect(() => {
+    dispatch(__getFanLetter());
+  }, [dispatch]);
 
   return (
     <FanLetterListWrapper>

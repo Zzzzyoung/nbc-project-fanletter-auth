@@ -1,3 +1,58 @@
 {
-  "letters": []
+  "letters": [
+    {
+      "createdAt": "2023-11-03T02:07:09.423Z",
+      "nickname": "카리나는 신이에요",
+      "avatar": "https://velog.velcdn.com/images/zyoung/post/612b0306-1320-450c-9fd4-d47b692bd31d/image.jpeg",
+      "content": "계란을 사면 29개 밖에 없겠네.. 너에게 '한 계란' 없어서.",
+      "writedTo": "카리나",
+      "id": "1",
+      "userId": "karinagod"
+    },
+    {
+      "createdAt": "2023-11-02T23:13:18.491Z",
+      "nickname": "핫걸",
+      "avatar": "https://velog.velcdn.com/images/zyoung/post/9721bded-6cc1-4786-8860-40e862112255/image.png",
+      "content": "난 내가 수영을 배워 놓은 걸 감사해. 너의 눈동자에 빠졌을 때 헤엄칠 수 있잖아.",
+      "writedTo": "지젤",
+      "id": "2",
+      "userId": "hotgirl"
+    },
+    {
+      "createdAt": "2023-11-02T23:13:18.491Z",
+      "nickname": "남씨의자랑남지현",
+      "avatar": "https://velog.velcdn.com/images/zyoung/post/2850f3ba-d4f1-4081-a1b4-29cbd4953870/image.jpeg",
+      "content": "혹시 너 MBIT가 CUTE?",
+      "writedTo": "남지현",
+      "id": "3",
+      "userId": "jihyunproud"
+    },
+    {
+      "createdAt": "2023-11-02T11:25:37.026Z",
+      "nickname": "겨울이",
+      "avatar": "https://velog.velcdn.com/images/zyoung/post/ac8d3a31-7fe7-4409-a570-27743c31279b/image.jpeg",
+      "content": "민정이 콧대에서 미끄러져서 나 지금 미국 와있다.",
+      "writedTo": "윈터",
+      "id": "4",
+      "userId": "winter"
+    },
+    {
+      "createdAt": "2023-11-02T16:06:34.150Z",
+      "nickname": "아기고양이",
+      "avatar": "https://velog.velcdn.com/images/zyoung/post/4ac21b7e-3806-4b6c-9e87-ecaaa17bcb3f/image.jpg",
+      "content": "여기서 나가려 합니다. 닝닝이를 더 이상 못 보겠습니다. 닝닝이가 아기 고양이로 보입니다. 그리고 그 아기 고양이를 사랑하게 되었습니다.",
+      "writedTo": "닝닝",
+      "id": "5",
+      "userId": "kitten"
+    },
+    {
+      "createdAt": "2023-11-03T05:40:17.575Z",
+      "nickname": "지영이",
+      "avatar": "https://velog.velcdn.com/images/zyoung/post/273417ec-a007-46c4-a24a-c2ebdeb4562e/image.jpg",
+      "content": "지민이는 물복임? 딱복임? 아니면 내 삶에 찾아온 행복이자 축복임?",
+      "writedTo": "카리나",
+      "id": "6",
+      "userId": "zyoung"
+    }
+  ]
 }

@@ -21,7 +21,6 @@ const authSlice = createSlice({
       state.avatar = avatar;
       state.nickname = nickname;
       state.userId = userId;
-      console.log("After localStorage", state);
     },
     logout: (state, action) => {
       state.isLogin = false;
