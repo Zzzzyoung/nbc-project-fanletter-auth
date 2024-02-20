@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { fanLetterApi } from "../../axios/api";
 
 const initialState = {
   letters: [],
@@ -12,9 +12,7 @@ export const __getFanLetter = createAsyncThunk(
   "getFanLetter",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.get(
-        "http://localhost:4000/letters?_sort=-createdAt"
-      );
+      const { data } = await fanLetterApi.get("/letters?_sort=-createdAt");
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -26,10 +24,7 @@ export const __addFanLetter = createAsyncThunk(
   "addFanLetter",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.post(
-        "http://localhost:4000/letters",
-        payload
-      );
+      const { data } = await fanLetterApi.post("/letters", payload);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

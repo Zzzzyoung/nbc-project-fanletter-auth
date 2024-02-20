@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../redux/modules/authSlice";
 import styled from "styled-components";
 import { toast } from "react-toastify";
-import api from "../axios/api";
+import { authApi } from "../axios/api";
 
 function Login() {
   const [id, setId] = useState("");
@@ -45,7 +45,7 @@ function Login() {
     if (showLogin) {
       // 로그인
       try {
-        const { data } = await api.post("/login", {
+        const { data } = await authApi.post("/login", {
           id,
           password,
         });
@@ -64,7 +64,7 @@ function Login() {
     } else {
       // 회원가입
       try {
-        const { data } = await api.post("/register", {
+        const { data } = await authApi.post("/register", {
           id,
           password,
           nickname,
