@@ -45,7 +45,7 @@ function Login() {
     if (showLogin) {
       // 로그인
       try {
-        const { data } = await authApi.post("/login", {
+        const { data } = await authApi.post("/login?expiresIn=10m", {
           id,
           password,
         });
@@ -142,7 +142,13 @@ const StLoginContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: lightgray;
+  background-image: linear-gradient(
+    to right,
+    #aee1f9,
+    #b3c8ee,
+    #b9afe5,
+    #bd96da
+  );
 `;
 
 const StLoginForm = styled.form`
@@ -151,7 +157,7 @@ const StLoginForm = styled.form`
   justify-content: center;
   gap: 25px;
   padding: 25px 30px;
-  background-color: white;
+  border: 1px solid white;
   border-radius: 10px;
   width: 400px;
   user-select: none;
@@ -171,7 +177,7 @@ const StLoginInput = styled.div`
   & input {
     padding: 8px 5px;
     border: none;
-    border-bottom: 1px solid darkgray;
+    border-bottom: 1px solid gray;
     outline: none;
   }
 `;
@@ -179,28 +185,31 @@ const StLoginInput = styled.div`
 const StLoginButton = styled.button`
   padding: 10px;
   font-size: 18px;
-  background-color: ${(props) => (props.disabled ? "darkgray" : "black")};
+  font-weight: 600px;
+  background-color: ${(props) => (props.disabled ? "gray" : "#4b3c57")};
   color: white;
-  border: 1px solid gray;
+  border: 1px solid black;
+  border-radius: 5px;
   transition: background-color 0.3s ease;
   cursor: pointer;
 
   &:hover {
-    background-color: lightgray;
+    color: black;
+    background-color: transparent;
   }
 `;
 
 const StToggleText = styled.div`
   text-align: center;
   font-size: 15px;
-  color: darkgray;
+  color: black;
 
   & span {
     transition: background-color 0.3s ease;
     cursor: pointer;
 
     &:hover {
-      color: black;
+      color: white;
     }
   }
 `;

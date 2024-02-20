@@ -10,6 +10,7 @@ const StBtn = styled.button`
   background-color: #4b3c57;
   color: white;
   padding: 8px 12px;
+  border: 1px solid black;
   border-radius: 5px;
   font-size: 13px;
   transition: background-color 0.3s ease;
