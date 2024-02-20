@@ -12,7 +12,9 @@ export const __getFanLetter = createAsyncThunk(
   "getFanLetter",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.get("http://localhost:4000/letters");
+      const { data } = await axios.get(
+        "http://localhost:4000/letters?_sort=-createdAt"
+      );
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -72,7 +74,7 @@ const fanLetterSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(__getFanLetter.pending, (state, action) => {
+      .addCase(__getFanLetter.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
       })
@@ -87,7 +89,7 @@ const fanLetterSlice = createSlice({
         state.error = action.payload;
       });
     builder
-      .addCase(__addFanLetter.pending, (state, action) => {
+      .addCase(__addFanLetter.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
       })

@@ -53,6 +53,15 @@
       "writedTo": "카리나",
       "id": "6",
       "userId": "zyoung"
+    },
+    {
+      "id": "14921aac-2a01-4974-9e22-c9944b2c94cb",
+      "createdAt": "Tue Feb 20 2024 18:03:16 GMT+0900 (한국 표준시)",
+      "nickname": "jiyoung",
+      "avatar": "null",
+      "content": "안녕 이건 테스트",
+      "writedTo": "카리나",
+      "userId": "jiyoung"
     }
   ]
 }
