@@ -9,4 +9,5 @@ export default Footer;
 const Container = styled.footer`
   margin: 40px auto 50px auto;
   font-weight: 400;
+  user-select: none;
 `;

@@ -128,6 +128,7 @@ const Form = styled.form`
   border: 1px solid white;
   border-radius: 10px;
   font-weight: 600;
+  user-select: none;
 `;
 
 const FormInput = styled.div`

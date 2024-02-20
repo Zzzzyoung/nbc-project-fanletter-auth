@@ -45,6 +45,7 @@ const MemberTabWrapper = styled.nav`
   background-color: transparent;
   border: 1px solid white;
   border-radius: 10px;
+  user-select: none;
 `;
 
 const MemberTabBtn = styled.button`

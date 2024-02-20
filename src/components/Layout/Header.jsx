@@ -38,6 +38,7 @@ const Title = styled.figure`
   margin-bottom: 5px;
   width: 200px;
   height: 150px;
+  user-select: none;
 
   img {
     width: 100%;
