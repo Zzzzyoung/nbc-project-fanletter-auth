@@ -4,27 +4,42 @@
 
 ## 👩‍💻 프로젝트 소개
 
-리액트 hook들과 context API, Redux를 이용해 에스파 멤버들에게 팬레터를 남길 수 있는 사이트 입니다.
+https://github.com/Zzzzyoung/nbc-project-fanletter 에서 발전시킨 프로젝트입니다.
+리액트 hook들과 Redux를 이용해 에스파 멤버들에게 팬레터를 남길 수 있으며, 인증 시스템이 있어 인증된 사용자만 팬레터를 작성하고 수정 및 삭제가 가능합니다.
+
+- 회원가입 화면
+
+![image](https://github.com/Zzzzyoung/nbc-project-fanletter-auth/assets/154482077/8954050a-ef53-4170-b802-73dee6f29c73)
+
+- 로그인 화면
+  
+![image](https://github.com/Zzzzyoung/nbc-project-fanletter-auth/assets/154482077/30459954-a05e-4e9d-8edd-3c6877da344c)
+![image](https://github.com/Zzzzyoung/nbc-project-fanletter-auth/assets/154482077/b5b499af-dcaa-4abe-ba0c-38d63420476b)
+
+- 프로필 화면
+  
+![image](https://github.com/Zzzzyoung/nbc-project-fanletter-auth/assets/154482077/8f504946-82f6-420b-8770-74559e31c93d)
+![image](https://github.com/Zzzzyoung/nbc-project-fanletter-auth/assets/154482077/1ed4a8e4-4b98-43c2-b857-e20fe92dd5b1)
 
 － 홈 화면
 
-![image](https://github.com/Zzzzyoung/nbc-project-fanletter/assets/154482077/80b83ff9-a6f3-418e-8170-dee7ca4f2140)
+![image](https://github.com/Zzzzyoung/nbc-project-fanletter-auth/assets/154482077/cc281398-246d-4ff0-a0b9-f858362d1748)
 
 － 상세 화면
 
-![image](https://github.com/Zzzzyoung/nbc-project-fanletter/assets/154482077/097bfae2-db78-4006-80b5-020fe9e9525f)
+![image](https://github.com/Zzzzyoung/nbc-project-fanletter-auth/assets/154482077/7485451f-e0d0-4842-bb2b-3a116fbcfed1)
+![image](https://github.com/Zzzzyoung/nbc-project-fanletter-auth/assets/154482077/78f7a99a-6f6c-465a-a927-a4c868881b02)
 
 ## 🖇️ 배포 링크
-
+- vercel
 https://nbc-project-fanletter-auth.vercel.app
 
-## 🖇️ json-server 배포 링크
-
+- json-server 
 https://flash-dog-monkey.glitch.me
 
 ## ⏲️ 개발 기간
 
-- 2024.02.01 ~ 02.05
+- 2024.02.19 ~ 02.21
 
 ## 💻 개발환경
 
@@ -34,37 +49,54 @@ https://flash-dog-monkey.glitch.me
 
 ## 📌 주요 기능
 
-- 팬레터 CRUD 구현 (작성, 조회, 수정, 삭제)
-- 아티스트별 게시물 조회 기능 구현 (Home - Read)
-- 원하는 아티스트에게 팬레터 등록 구현 (Home - Create)
-- 팬레터 상세 화면 구현 (Detail - Read)
-- 상세화면에서 팬레터 내용 수정 구현 (Detail - Update)
-- 상세화면에서 팬레터 삭제 구현 (Detail - Delete)
+- 팬레터 CRUD 구현 (Create, Read, Update, Dalete)
+   - 아티스트별 게시물 조회 기능 구현 (Home - Read)
+   - 원하는 아티스트에게 팬레터 등록 구현 (Home - Create)
+   - 팬레터 상세 화면 구현 (Detail - Read)
+   - 상세화면에서 팬레터 내용 수정 구현 (Detail - Update)
+   - 상세화면에서 팬레터 삭제 구현 (Detail - Delete)
 - 팬레터 작성, 수정, 삭제 시 유효성 검사 가능
+
+- 로그인/회원가입 UI 구현
+  - 로그인이 되어야 팬레터 화면으로 진입 가능
+- 홈 화면 UI 구현 (Create, Read)
+   - 팬레터 추가폼에 회원가입 시 작성한 닉네임 적용
+- 프로필 관리 UI 구현
+   - 프로필 이미지, 닉네임 변경 기능 
+- 상세 화면 UI 구현 (Read, Update, Delete)
+   - 본인이 작성한 팬레터만 수정 및 삭제 가능
 
 ## ✔️ 필수 요구 사항
 
-- styled-components 를 이용하여 스타일링
-  - 인라인 스타일링이나 일반 css 파일을 이용한 스타일링 방식 지양
-  - 모든 태그를 styled-components 화 할 필요는 없으나 스타일링이 들어가는 경우는 styled-components 화 할 것
-- 전역 스타일에 reset.css 를 적용해주고 box-sizing이 border-box가 되도록 설정
-- styled-components에 props를 넘김으로 인한 조건부 스타일링 적용
-  - 아티스트 선택탭에 적용
-- 팬레터 등록 시 id는 uuid 라이브러리를 이용
+- 팬레터 CRUD를 위한 API 통신은 json-server 이용
+- 인증과 프로필 관리를 위한 API 통신은 jwt 인증 서버 이용
+- fetch API 대신 axios 이용
+- Redux 사용 시 Redux Toolkit 이용
+- 전역 스타일링 및 reset.css 적용
+    - box-sizing: border-box
 
 ## ✔️ 선택 요구 사항
 
+- redux-thunk 를 이용한 API 통신 로직을 react-query 로 리팩터링
+    - react-query 브랜치
+- Custom Hook 구현
 - 모달 구현
-  - window.alert 이나 window.conform 대신 직접 구현한 모달을 적용
-- 만능 버튼 구현(공통 컴포넌트 버튼)
-  - 하나의 버튼 컴포넌트를 홈화면과 상세화면 모두에서 적용
-  - props 로 버튼 크기나 버튼 텍스트 등을 받음
+    - window.alert 이나 window.conform 대신 직접 구현한 모달을 적용
+- 새로고침 UI 유지
+    - 로컬스토리지를 이용
+- 검색 기능 구현
+    - query string
+    - react-router-dom의 useSearchParams
+    - 별도의 검색 버튼 없이 실시간 검색 구현 시 deboucing 적용
+- 팬레터 상세 화면에 댓글 기능 구현
 
 ## 🧩 컴포넌트
 
 ```
 src
 ├── assets
+├── axios
+│   └── api.js
 ├── components
 │   ├── common                    # 공통 컴포넌트
 │   │   ├── Button.jsx            # 공통 버튼
@@ -76,29 +108,30 @@ src
 │   │   ├── FanLetterList.jsx     # 멤버별 팬레터 리스트
 │   │   └── MemberTab.jsx         # 멤버 선택 탭
 │   └── Layout
-│   │   ├── Footer.jsx            # 푸터
-│   │   └── Header.jsx            # 헤더
-├── context
-│   ├── FanLetterContext.jsx      # 팬레터 전역 상태로 관리
-│   └── MemberContext.jsx         # 멤버 전역 상태로 관리
+│       ├── Footer.jsx            # 푸터
+│       ├── Header.jsx            # 헤더
+│       └── Layout.jsx            # 공통 Navbar
 ├── pages
 │   ├── Detail.jsx                # 팬레터 상세 화면
-│   └── Home.jsx                  # 팬레터 홈 화면
+│   ├── Home.jsx                  # 팬레터 홈 화면
+│   ├── Login.jsx                 # 로그인 화면
+│   └── Profile.jsx               # 프로필 화면
 ├── redux
 │   ├── config
 │   │   └── configStore.js
 │   └── modules
-│   │   ├── buttons.js
-│   │   └── member.js
+│       ├── authSlice.js
+│       ├── fanLetterSlice.js
+│       └── memberSlice.js
 ├── shared
-│   └── Router.jsx                # 홈 화면과 상세 화면에 대한 라우터 설정
+│   └── Router.jsx                # 각 페이지 대한 라우터 설정
 ├── style
 │   └── GlobalStyle.jsx           # 전역 스타일
 ├── util                          # 공통 함수
-│   │   └── Date.jsx              # 공통 날짜 형식
+│       └── Date.jsx              # 공통 날짜 형식
 ├── App.jsx
-├── fakeData.json
 └── index.jsx
+db.json
 ```
 
 ## Create React App 만들기 시작 위한 방법
