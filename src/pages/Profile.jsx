@@ -2,18 +2,31 @@ import Button from "components/common/Button";
 import UserImg from "components/common/UserImg";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 
 function Profile() {
   const { avatar, nickname, userId } = useSelector((state) => state.auth);
   const [isEditing, setIsEditing] = useState(false);
   const [editingText, setEditingText] = useState("");
+  const [editingImg, setEditingImg] = useState(avatar);
+
+  const handleEditingImg = (e) => {
+    const file = e.target.files[0];
+    setEditingImg(URL.createObjectURL(file)); // 이미지 파일의 로컬 URL 생성
+  };
 
   const clickEditDoneBtn = () => {
-    if (!editingText) {
-      return alert("수정된 부분이 없습니다.");
+    if (!editingText && editingImg === avatar) {
+      return toast.warning("수정된 부분이 없습니다.");
     }
-    setIsEditing(false);
+    const checkedit = window.confirm("수정하시겠습니까?");
+    if (checkedit) {
+      toast.success("프로필 수정이 완료 되었습니다.");
+      setIsEditing(false);
+      setEditingText("");
+      setEditingImg(null);
+    }
   };
 
   return (
@@ -21,17 +34,29 @@ function Profile() {
       <StProfileWrapper>
         <h2>프로필 수정</h2>
         <StProfileInfo>
-          <UserImg size="large" src={avatar} />
           {isEditing ? (
-            <input
-              defaultValue={nickname}
-              minLength={1}
-              maxLength={10}
-              autoFocus
-              onChange={(e) => setEditingText(e.target.value)}
-            />
+            <>
+              <label>
+                <UserImg size="large" src={editingImg} />
+                <input
+                  type="file"
+                  onChange={handleEditingImg}
+                  accept="image/jpg,image/png,image/jpeg"
+                />
+              </label>
+              <input
+                defaultValue={nickname}
+                minLength={1}
+                maxLength={10}
+                autoFocus
+                onChange={(e) => setEditingText(e.target.value)}
+              />
+            </>
           ) : (
-            <StProfileNickname>{nickname}</StProfileNickname>
+            <>
+              <UserImg size="large" src={editingImg} />
+              <StProfileNickname>{nickname}</StProfileNickname>
+            </>
           )}
           <StProfileId>{userId}</StProfileId>
         </StProfileInfo>
@@ -100,6 +125,10 @@ const StProfileInfo = styled.div`
   justify-content: center;
   align-items: center;
   gap: 15px;
+
+  & label > input {
+    display: none;
+  }
 
   & input {
     padding: 4px;
