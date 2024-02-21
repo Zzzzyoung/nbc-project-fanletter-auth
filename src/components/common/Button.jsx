@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
-function Button({ btnName, onClick = () => {} }) {
-  return <StBtn onClick={onClick}>{btnName}</StBtn>;
+function Button({ size, btnName, onClick = () => {} }) {
+  return (
+    <StBtn $size={size} onClick={onClick}>
+      {btnName}
+    </StBtn>
+  );
 }
 
 export default Button;
@@ -9,10 +13,10 @@ export default Button;
 const StBtn = styled.button`
   background-color: #4b3c57;
   color: white;
-  padding: 8px 12px;
+  padding: ${({ $size }) => ($size === "large" ? "9px 15px" : "8px 12px")};
   border: 1px solid black;
   border-radius: 5px;
-  font-size: 13px;
+  font-size: ${({ $size }) => ($size === "large" ? "16px" : "13px")};
   transition: background-color 0.3s ease;
   user-select: none;
   cursor: pointer;

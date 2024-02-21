@@ -1,26 +1,59 @@
+import Button from "components/common/Button";
 import UserImg from "components/common/UserImg";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 function Profile() {
   const { avatar, nickname, userId } = useSelector((state) => state.auth);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingText, setEditingText] = useState("");
 
-  const editProfileHandler = (event) => {
-    event.preventDefault();
+  const clickEditDoneBtn = () => {
+    if (!editingText) {
+      return alert("수정된 부분이 없습니다.");
+    }
+    setIsEditing(false);
   };
 
   return (
     <StProfileContainer>
-      <StProfileForm onSubmit={editProfileHandler}>
+      <StProfileWrapper>
         <h2>프로필 수정</h2>
         <StProfileInfo>
           <UserImg size="large" src={avatar} />
-          <StProfileNickname>{nickname}</StProfileNickname>
+          {isEditing ? (
+            <input
+              defaultValue={nickname}
+              minLength={1}
+              maxLength={10}
+              autoFocus
+              onChange={(e) => setEditingText(e.target.value)}
+            />
+          ) : (
+            <StProfileNickname>{nickname}</StProfileNickname>
+          )}
           <StProfileId>{userId}</StProfileId>
         </StProfileInfo>
-
-        <StProfileButton>수정하기</StProfileButton>
-      </StProfileForm>
+        {isEditing ? (
+          <>
+            <StProfileButtonWrapper>
+              <Button
+                size="large"
+                btnName="취소"
+                onClick={() => setIsEditing(false)}
+              />
+              <Button size="large" btnName="완료" onClick={clickEditDoneBtn} />
+            </StProfileButtonWrapper>
+          </>
+        ) : (
+          <Button
+            size="large"
+            btnName="수정하기"
+            onClick={() => setIsEditing(true)}
+          />
+        )}
+      </StProfileWrapper>
     </StProfileContainer>
   );
 }
@@ -42,7 +75,7 @@ const StProfileContainer = styled.div`
   );
 `;
 
-const StProfileForm = styled.form`
+const StProfileWrapper = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -67,6 +100,11 @@ const StProfileInfo = styled.div`
   justify-content: center;
   align-items: center;
   gap: 15px;
+
+  & input {
+    padding: 4px;
+    font-size: 18px;
+  }
 `;
 
 const StProfileNickname = styled.span`
@@ -79,20 +117,7 @@ const StProfileId = styled.span`
   font-size: 18px;
 `;
 
-const StProfileButton = styled.button`
-  width: 100%;
-  padding: 10px;
-  font-size: 18px;
-  font-weight: 600px;
-  background-color: #4b3c57;
-  color: white;
-  border: 1px solid black;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-  cursor: pointer;
-
-  &:hover {
-    color: black;
-    background-color: transparent;
-  }
+const StProfileButtonWrapper = styled.div`
+  display: flex;
+  gap: 10px;
 `;

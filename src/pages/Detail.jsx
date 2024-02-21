@@ -115,7 +115,7 @@ function Detail() {
               />
             </UserMain>
             <BtnWrapper>
-              <Button btnName="수정완료" onClick={clickEditDoneBtn} />
+              <Button btnName="완료" onClick={clickEditDoneBtn} />
               <Button btnName="취소" onClick={() => setIsEditing(false)} />
             </BtnWrapper>
           </>
