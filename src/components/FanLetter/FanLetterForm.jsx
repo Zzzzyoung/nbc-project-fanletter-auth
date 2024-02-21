@@ -49,7 +49,7 @@ function FanLetterForm() {
   // 제출 모달창 확인
   const confirmSubmitModal = () => {
     const newFanLetter = {
-      createdAt: new Date().toString(),
+      createdAt: Date.now(),
       nickname,
       avatar,
       content,
