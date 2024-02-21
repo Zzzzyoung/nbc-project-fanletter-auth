@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { authApi, fanLetterApi } from "../../axios/api";
 import { logout } from "./authSlice";
+import { toast } from "react-toastify";
 
 const initialState = {
   letters: [],
@@ -21,22 +22,14 @@ export const __getFanLetter = createAsyncThunk(
         },
       });
 
-      if (data) {
+      if (data.success) {
         const { data } = await fanLetterApi.get("/letters?_sort=-createdAt");
         return thunkAPI.fulfillWithValue(data);
-      } else {
-        thunkAPI.dispatch(logout());
-        return thunkAPI.rejectWithValue("Invalid accessToken");
       }
     } catch (error) {
-      // AxiosError를 직렬화 가능한 개체로 변환
-      const serializableError = {
-        message: error.message,
-        name: error.name,
-        code: error.code,
-      };
-
-      return thunkAPI.rejectWithValue({ error: serializableError });
+      toast.error(error.response.data.message);
+      thunkAPI.dispatch(logout());
+      return thunkAPI.rejectWithValue("Invalid accessToken");
     }
   }
 );
@@ -53,22 +46,17 @@ export const __addFanLetter = createAsyncThunk(
         },
       });
 
-      if (data) {
-        const { data } = await fanLetterApi.post("/letters", payload);
+      if (data.success) {
+        const { data } = await fanLetterApi.post(
+          "/letters?_sort=-createdAt",
+          payload
+        );
         return thunkAPI.fulfillWithValue(data);
-      } else {
-        thunkAPI.dispatch(logout());
-        return thunkAPI.rejectWithValue("Invalid accessToken");
       }
     } catch (error) {
-      // AxiosError를 직렬화 가능한 개체로 변환
-      const serializableError = {
-        message: error.message,
-        name: error.name,
-        code: error.code,
-      };
-
-      return thunkAPI.rejectWithValue({ error: serializableError });
+      toast.error(error.response.data.message);
+      thunkAPI.dispatch(logout());
+      return thunkAPI.rejectWithValue("Invalid accessToken");
     }
   }
 );

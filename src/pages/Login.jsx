@@ -51,7 +51,6 @@ function Login() {
           password,
         });
 
-        console.log("data", data);
         const { accessToken, avatar, nickname, userId } = data;
 
         if (data.success) {

@@ -14,6 +14,7 @@ authApi.interceptors.request.use(
   // 오류 요청을 보내기 전 수행되는 함수
   function (error) {
     console.log("인터셉터 요청 오류!");
+    console.log("error", error);
     return Promise.reject(error);
   }
 );
@@ -28,6 +29,7 @@ authApi.interceptors.response.use(
   //오류 응답을 내보내기 전 수행되는 함수
   function (error) {
     console.log("인터셉터 응답 오류!");
+    console.log("error", error);
     return Promise.reject(error);
   }
 );
@@ -44,6 +46,7 @@ fanLetterApi.interceptors.request.use(
   // 오류 요청을 보내기 전 수행되는 함수
   function (error) {
     console.log("인터셉터 요청 오류!");
+    console.log("error", error);
     return Promise.reject(error);
   }
 );
@@ -58,6 +61,7 @@ fanLetterApi.interceptors.response.use(
   //오류 응답을 내보내기 전 수행되는 함수
   function (error) {
     console.log("인터셉터 응답 오류!");
+    console.log("error", error);
     return Promise.reject(error);
   }
 );
