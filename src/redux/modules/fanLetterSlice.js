@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { authApi } from "../../api/auth";
-import { fanLetterApi } from "../../api/fanLetter";
+import authApi from "../../api/auth";
+import fanLetterApi from "../../api/fanLetter";
 import { logout } from "./authSlice";
 import { toast } from "react-toastify";
 

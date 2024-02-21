@@ -1,6 +1,8 @@
 import axios from "axios";
 
-export const fanLetterApi = axios.create({ baseURL: "http://localhost:4000" });
+const fanLetterApi = axios.create({
+  baseURL: process.env.REACT_APP_FANLETTER_SERVER_URL,
+});
 
 fanLetterApi.interceptors.request.use(
   // 요청을 보내기 전 수행되는 함수
@@ -31,3 +33,5 @@ fanLetterApi.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+export default fanLetterApi;

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const authApi = axios.create({
-  baseURL: "https://moneyfulpublicpolicy.co.kr",
+const authApi = axios.create({
+  baseURL: process.env.REACT_APP_AUTH_SERVER_URL,
 });
 
 authApi.interceptors.request.use(
@@ -33,3 +33,5 @@ authApi.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+export default authApi;

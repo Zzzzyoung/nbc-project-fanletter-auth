@@ -62,6 +62,15 @@
       "content": "안녕 이건 테스트!",
       "writedTo": "카리나",
       "userId": "jiyoung"
+    },
+    {
+      "id": "913f9665-8689-4263-baa6-84f777d02e25",
+      "createdAt": "Thu Feb 22 2024 02:13:19 GMT+0900 (한국 표준시)",
+      "nickname": "imjiyoung",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-21/f2cb3109-8418-4716-bdb2-fce56f9f0bd4.jpg",
+      "content": "졸리다 하하",
+      "writedTo": "카리나",
+      "userId": "jiyoung"
     }
   ]
 }
