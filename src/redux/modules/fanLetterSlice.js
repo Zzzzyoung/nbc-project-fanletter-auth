@@ -14,7 +14,6 @@ export const __getFanLetter = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
-      console.log("accessToken", accessToken);
       const { data } = await authApi.get("/user", {
         headers: {
           "Content-Type": "application/json",
@@ -47,7 +46,6 @@ export const __addFanLetter = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
-      console.log("accessToken", accessToken);
       const { data } = await authApi.get("/user", {
         headers: {
           "Content-Type": "application/json",
