@@ -39,7 +39,7 @@ function Login() {
     : !isIdValid || !isPasswordValid || !isNicknameValid;
 
   // 로그인 & 회원가입
-  const onSubmitHandler = async (e) => {
+  const onSubmitLoginHandler = async (e) => {
     e.preventDefault();
 
     if (showLogin) {
@@ -71,7 +71,7 @@ function Login() {
 
   return (
     <StLoginContainer>
-      <StLoginForm onSubmit={onSubmitHandler}>
+      <StLoginForm onSubmit={onSubmitLoginHandler}>
         <STLoginTitle>{showLogin ? "로그인" : "회원가입"}</STLoginTitle>
         <StLoginInput>
           <input
