@@ -7,10 +7,10 @@ import { __getFanLetter } from "../../redux/modules/fanLetterSlice";
 function FanLetterList() {
   const dispatch = useDispatch();
   const selectedMember = useSelector((state) => state.member);
-  const fanLetters = useSelector((state) => state.fanLetters.letters);
+  const fanLetters = useSelector((state) => state.fanLetters.fanLetters);
 
-  const filteredFanLetterItem = fanLetters.filter((item) => {
-    return item.writedTo === selectedMember;
+  const filteredFanLetterItem = fanLetters.filter((fanLetter) => {
+    return fanLetter.writedTo === selectedMember;
   });
 
   useEffect(() => {
