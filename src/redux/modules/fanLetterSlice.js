@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fanLetterApi } from "../../axios/api";
+import { authApi, fanLetterApi } from "../../axios/api";
+import { logout } from "./authSlice";
 
 const initialState = {
   letters: [],
@@ -12,10 +13,31 @@ export const __getFanLetter = createAsyncThunk(
   "getFanLetter",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await fanLetterApi.get("/letters?_sort=-createdAt");
-      return thunkAPI.fulfillWithValue(data);
+      const accessToken = localStorage.getItem("accessToken");
+      console.log("accessToken", accessToken);
+      const { data } = await authApi.get("/user", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (data) {
+        const { data } = await fanLetterApi.get("/letters?_sort=-createdAt");
+        return thunkAPI.fulfillWithValue(data);
+      } else {
+        thunkAPI.dispatch(logout());
+        return thunkAPI.rejectWithValue("Invalid accessToken");
+      }
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      // AxiosError를 직렬화 가능한 개체로 변환
+      const serializableError = {
+        message: error.message,
+        name: error.name,
+        code: error.code,
+      };
+
+      return thunkAPI.rejectWithValue({ error: serializableError });
     }
   }
 );
@@ -24,10 +46,31 @@ export const __addFanLetter = createAsyncThunk(
   "addFanLetter",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await fanLetterApi.post("/letters", payload);
-      return thunkAPI.fulfillWithValue(data);
+      const accessToken = localStorage.getItem("accessToken");
+      console.log("accessToken", accessToken);
+      const { data } = await authApi.get("/user", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (data) {
+        const { data } = await fanLetterApi.post("/letters", payload);
+        return thunkAPI.fulfillWithValue(data);
+      } else {
+        thunkAPI.dispatch(logout());
+        return thunkAPI.rejectWithValue("Invalid accessToken");
+      }
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      // AxiosError를 직렬화 가능한 개체로 변환
+      const serializableError = {
+        message: error.message,
+        name: error.name,
+        code: error.code,
+      };
+
+      return thunkAPI.rejectWithValue({ error: serializableError });
     }
   }
 );
@@ -91,7 +134,7 @@ const fanLetterSlice = createSlice({
       .addCase(__addFanLetter.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
-        state.letters = [...state.letters, action.payload]; // 배열로 변환
+        state.letters = [action.payload, ...state.letters]; // 배열로 변환
       })
       .addCase(__addFanLetter.rejected, (state, action) => {
         state.isLoading = false;

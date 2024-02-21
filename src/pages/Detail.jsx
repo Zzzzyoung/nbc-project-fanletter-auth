@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { formattedCreatedAt } from "util/Date";
 import UserImg from "components/common/UserImg";
@@ -75,12 +75,6 @@ function Detail() {
 
   return (
     <Container>
-      {/* <Link to="/">
-        <HomeBtn>
-          <Button btnName="홈으로" />
-        </HomeBtn>
-      </Link> */}
-
       <DetailFanLetterItemWrapper>
         <UserHeader>
           <UserInfo>
