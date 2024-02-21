@@ -16,7 +16,7 @@
 
 ## 🖇️ 배포 링크
 
-https://nbc-project-fanletter.vercel.app/
+https://nbc-project-fanletter-auth.vercel.app
 
 ## 🖇️ json-server 배포 링크
 
