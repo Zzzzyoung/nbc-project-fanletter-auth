@@ -76,11 +76,21 @@ function Detail() {
   }, [dispatch]);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <Container>
+        <p>Loading...</p>
+      </Container>
+    );
+  }
+
+  if (fanLetters.length === 0) {
+    return null;
   }
 
   const { avatar, nickname, createdAt, writedTo, content, userId } =
     fanLetters.find((fanLetter) => fanLetter.id === id);
+
+  // 내가 쓴 글만 수정 및 삭제 가능
   const myContent = userId === myId;
 
   return (
@@ -145,11 +155,11 @@ function Detail() {
 export default Detail;
 
 const Container = styled.div`
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
   background-image: linear-gradient(
     to right,
     #aee1f9,
