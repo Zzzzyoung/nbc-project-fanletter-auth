@@ -79,6 +79,8 @@ export const __deleteFanLetter = createAsyncThunk(
         return thunkAPI.fulfillWithValue(data);
       }
     } catch (error) {
+      toast.error(error.response.data.message);
+      thunkAPI.dispatch(logout());
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -104,6 +106,52 @@ export const __editFanLetter = createAsyncThunk(
         return thunkAPI.fulfillWithValue(data);
       }
     } catch (error) {
+      toast.error(error.response.data.message);
+      thunkAPI.dispatch(logout());
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __updateFanLetter = createAsyncThunk(
+  "updateFanLetter",
+  async ({ editingText, editingImg }, thunkAPI) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const { data } = await authApi.get("/user", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (data.success) {
+        const userId = localStorage.getItem("userId");
+        console.log("userId", userId);
+        const { data } = await fanLetterApi.get(`/fanLetters?userId=${userId}`);
+        console.log("data", data);
+
+        for (let index = 0; index < data.length; index++) {
+          const element = data[index];
+
+          fanLetterApi.patch(
+            `/fanLetters/${element.id}`,
+            {
+              nickname: editingText,
+              avatar: editingImg,
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+        }
+
+        return thunkAPI.fulfillWithValue(data);
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -170,6 +218,21 @@ const fanLetterSlice = createSlice({
         state.fanLetters = action.payload;
       })
       .addCase(__editFanLetter.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload;
+      });
+    builder
+      .addCase(__updateFanLetter.pending, (state, action) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(__updateFanLetter.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.fanLetters = action.payload;
+      })
+      .addCase(__updateFanLetter.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.error = action.payload;

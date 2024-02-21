@@ -1,31 +1,50 @@
 import Button from "components/common/Button";
 import UserImg from "components/common/UserImg";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { __editProfile } from "../redux/modules/authSlice";
 import styled from "styled-components";
+import { __updateFanLetter } from "../redux/modules/fanLetterSlice";
 
 function Profile() {
+  const dispatch = useDispatch();
   const { avatar, nickname, userId } = useSelector((state) => state.auth);
   const [isEditing, setIsEditing] = useState(false);
   const [editingText, setEditingText] = useState("");
   const [editingImg, setEditingImg] = useState(avatar);
+  const [selectedImg, setSelectedImg] = useState(avatar);
 
   const handleEditingImg = (e) => {
     const file = e.target.files[0];
-    setEditingImg(URL.createObjectURL(file)); // 이미지 파일의 로컬 URL 생성
+    setEditingImg(file);
+    setSelectedImg(URL.createObjectURL(file)); // 이미지 파일의 로컬 URL 생성
   };
 
   const clickEditDoneBtn = () => {
-    if (!editingText && editingImg === avatar) {
+    if (!editingText && selectedImg === avatar) {
       return toast.warning("수정된 부분이 없습니다.");
     }
-    const checkedit = window.confirm("수정하시겠습니까?");
-    if (checkedit) {
+    const checkEdit = window.confirm("수정하시겠습니까?");
+    if (checkEdit) {
+      // 프로필 변경
+
+      // 이미지파일을 FormData에 담는 방법
+      const formData = new FormData();
+      // avatar와 nickname 중 하나 또는 모두 변경 가능
+      if (selectedImg !== avatar) {
+        formData.append("avatar", editingImg);
+      }
+      if (editingText) {
+        formData.append("nickname", editingText);
+      }
+      console.log("avartar", editingImg);
+      console.log("nickname", editingText);
+
+      dispatch(__editProfile(formData));
+      dispatch(__updateFanLetter({ editingText, editingImg }));
       toast.success("프로필 수정이 완료 되었습니다.");
       setIsEditing(false);
-      setEditingText("");
-      setEditingImg(null);
     }
   };
 
@@ -37,7 +56,7 @@ function Profile() {
           {isEditing ? (
             <>
               <label>
-                <UserImg size="large" src={editingImg} />
+                <UserImg size="large" item={selectedImg} />
                 <input
                   type="file"
                   onChange={handleEditingImg}
@@ -54,7 +73,7 @@ function Profile() {
             </>
           ) : (
             <>
-              <UserImg size="large" src={editingImg} />
+              <UserImg size="large" item={selectedImg} />
               <StProfileNickname>{nickname}</StProfileNickname>
             </>
           )}
