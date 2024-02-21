@@ -53,6 +53,15 @@
       "content": "지민이는 물복임? 딱복임? 아니면 내 삶에 찾아온 행복이자 축복임?",
       "writedTo": "카리나",
       "userId": "zyoung"
+    },
+    {
+      "id": "f71c3586-7272-4905-84ac-16192f32abb7",
+      "createdAt": "Wed Feb 21 2024 21:55:47 GMT+0900 (한국 표준시)",
+      "nickname": "imjiyoung",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-21/f2cb3109-8418-4716-bdb2-fce56f9f0bd4.jpg",
+      "content": "안녕 이건 테스트!",
+      "writedTo": "카리나",
+      "userId": "jiyoung"
     }
   ]
 }
