@@ -38,13 +38,11 @@ function Profile() {
       if (editingText) {
         formData.append("nickname", editingText);
       }
-      console.log("avartar", editingImg);
-      console.log("nickname", editingText);
 
       dispatch(__editProfile(formData));
       dispatch(__updateFanLetter({ editingText, editingImg }));
-      toast.success("프로필 수정이 완료 되었습니다.");
       setIsEditing(false);
+      toast.success("프로필 수정이 완료 되었습니다.");
     }
   };
 

@@ -127,9 +127,7 @@ export const __updateFanLetter = createAsyncThunk(
 
       if (data.success) {
         const userId = localStorage.getItem("userId");
-        console.log("userId", userId);
         const { data } = await fanLetterApi.get(`/fanLetters?userId=${userId}`);
-        console.log("data", data);
 
         for (let index = 0; index < data.length; index++) {
           const element = data[index];
