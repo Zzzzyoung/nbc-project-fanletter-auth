@@ -18,7 +18,7 @@ export const __login = createAsyncThunk(
     // 로그인
     try {
       // accessToken 유효 시간 조정
-      const { data } = await authApi.post("/login", {
+      const { data } = await authApi.post("/login?expiresIn=10m", {
         id,
         password,
       });
