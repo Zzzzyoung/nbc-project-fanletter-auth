@@ -29,7 +29,7 @@ export const __getFanLetter = createAsyncThunk(
     } catch (error) {
       toast.error(error.response.data.message);
       thunkAPI.dispatch(logout());
-      return thunkAPI.rejectWithValue("Invalid accessToken");
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -56,7 +56,7 @@ export const __addFanLetter = createAsyncThunk(
     } catch (error) {
       toast.error(error.response.data.message);
       thunkAPI.dispatch(logout());
-      return thunkAPI.rejectWithValue("Invalid accessToken");
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -77,10 +77,6 @@ const fanLetterSlice = createSlice({
   name: "fanLetter",
   initialState,
   reducers: {
-    // addFanLetter: (state, action) => {
-    //   const newFanLetter = action.payload;
-    //   return [newFanLetter, ...state];
-    // },
     // deleteFanLetter: (state, action) => {
     //   const fanLetterId = action.payload;
     //   return state.filter((fanLetter) => fanLetter.id !== fanLetterId);

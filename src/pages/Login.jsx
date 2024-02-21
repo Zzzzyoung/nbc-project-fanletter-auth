@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "../redux/modules/authSlice";
+import { __login } from "../redux/modules/authSlice";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 import { authApi } from "../axios/api";
@@ -43,24 +43,7 @@ function Login() {
     e.preventDefault();
 
     if (showLogin) {
-      // 로그인
-      try {
-        // accessToken 유효 시간 조정
-        const { data } = await authApi.post("/login?expiresIn=10m", {
-          id,
-          password,
-        });
-
-        const { accessToken, avatar, nickname, userId } = data;
-
-        if (data.success) {
-          dispatch(login({ accessToken, avatar, nickname, userId })); // action.payload에 객체로 넘겨주기
-          toast.success("로그인 성공!");
-        }
-      } catch (error) {
-        console.error("error", error);
-        toast.error(error.response.data.message);
-      }
+      dispatch(__login({ id, password }));
     } else {
       // 회원가입
       try {
