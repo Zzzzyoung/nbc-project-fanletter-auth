@@ -65,9 +65,19 @@ export const __deleteFanLetter = createAsyncThunk(
   "deleteFanLetter",
   async (id, thunkAPI) => {
     try {
-      await fanLetterApi.delete(`/fanLetters/${id}`);
-      const { data } = await fanLetterApi.get("/fanLetters?_sort=-createdAt");
-      return thunkAPI.fulfillWithValue(data);
+      const accessToken = localStorage.getItem("accessToken");
+      const { data } = await authApi.get("/user", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (data.success) {
+        await fanLetterApi.delete(`/fanLetters/${id}`);
+        const { data } = await fanLetterApi.get("/fanLetters?_sort=-createdAt");
+        return thunkAPI.fulfillWithValue(data);
+      }
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -78,11 +88,21 @@ export const __editFanLetter = createAsyncThunk(
   "editFanLetter",
   async ({ id, editedTextArea }, thunkAPI) => {
     try {
-      await fanLetterApi.patch(`/fanLetters/${id}`, {
-        content: editedTextArea,
+      const accessToken = localStorage.getItem("accessToken");
+      const { data } = await authApi.get("/user", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
       });
-      const { data } = await fanLetterApi.get("/fanLetters?_sort=-createdAt");
-      return thunkAPI.fulfillWithValue(data);
+
+      if (data.success) {
+        await fanLetterApi.patch(`/fanLetters/${id}`, {
+          content: editedTextArea,
+        });
+        const { data } = await fanLetterApi.get("/fanLetters?_sort=-createdAt");
+        return thunkAPI.fulfillWithValue(data);
+      }
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
