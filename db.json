@@ -1,5 +1,5 @@
 {
-  "letters": [
+  "fanLetters": [
     {
       "createdAt": "2023-11-03T02:07:09.423Z",
       "nickname": "카리나는 신이에요",
@@ -55,8 +55,8 @@
       "userId": "zyoung"
     },
     {
-      "id": "cb2d5e99-9239-4b3f-a322-1638f7e33ae3",
-      "createdAt": "Wed Feb 21 2024 12:23:50 GMT+0900 (한국 표준시)",
+      "id": "4b25fb57-ffb5-4974-be79-20bcf9e77127",
+      "createdAt": "Wed Feb 21 2024 13:33:29 GMT+0900 (한국 표준시)",
       "nickname": "jiyoung",
       "avatar": null,
       "content": "안녕 이건 테스트",

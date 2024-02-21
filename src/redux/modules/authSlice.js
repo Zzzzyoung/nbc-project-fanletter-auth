@@ -7,7 +7,7 @@ const initialState = {
   avatar: localStorage.getItem("avatar"),
   nickname: localStorage.getItem("nickname"),
   userId: localStorage.getItem("userId"),
-  isLoading: false,
+  isLoading: true,
   isError: false,
   error: null,
 };
@@ -76,4 +76,4 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
-export const { login, logout } = authSlice.actions;
+export const { logout } = authSlice.actions;

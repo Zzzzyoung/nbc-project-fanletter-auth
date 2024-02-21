@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { formattedCreatedAt } from "util/Date";
@@ -7,23 +7,21 @@ import Button from "components/common/Button";
 import CommonModal from "components/common/CommonModal";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  deleteFanLetter,
-  editFanLetter,
+  __getFanLetter,
+  __deleteFanLetter,
+  __editFanLetter,
 } from "../redux/modules/fanLetterSlice";
 
 function Detail() {
-  const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { id } = useParams();
   const [isEditing, setIsEditing] = useState(false);
   const [editedTextArea, setEditedTextArea] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const fanLetters = useSelector((state) => state.fanLetters);
-  const dispatch = useDispatch();
-
-  const { avatar, nickname, createdAt, writedTo, content } = fanLetters.find(
-    (item) => item.id === id
-  );
+  const { fanLetters, isLoading } = useSelector((state) => state.fanLetters);
+  const myId = useSelector((state) => state.auth.userId);
 
   // 삭제하기
   // 삭제 모달창 열기
@@ -38,7 +36,7 @@ function Detail() {
 
   // 삭제 모달창 확인
   const confirmDeleteModal = () => {
-    dispatch(deleteFanLetter(id));
+    dispatch(__deleteFanLetter(id));
     navigate("/");
     closeModal();
   };
@@ -64,7 +62,7 @@ function Detail() {
 
   // 수정 모달창 확인
   const confirmEditModal = () => {
-    dispatch(editFanLetter({ id, editedTextArea }));
+    dispatch(__editFanLetter({ id, editedTextArea }));
     setIsEditing(false);
     setEditedTextArea("");
     closeEditModal();
@@ -72,6 +70,18 @@ function Detail() {
 
   // 수정 모달창 취소
   const cancelEditModal = () => closeEditModal();
+
+  useEffect(() => {
+    dispatch(__getFanLetter());
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  const { avatar, nickname, createdAt, writedTo, content, userId } =
+    fanLetters.find((fanLetter) => fanLetter.id === id);
+  const myContent = userId === myId;
 
   return (
     <Container>
@@ -105,10 +115,12 @@ function Detail() {
               <ToWhom>To. {writedTo}</ToWhom>
               <UserContent>{content}</UserContent>
             </UserMain>
-            <BtnWrapper>
-              <Button btnName="수정" onClick={() => setIsEditing(true)} />
-              <Button btnName="삭제" onClick={clickDeleteBtn} />
-            </BtnWrapper>
+            {myContent && (
+              <BtnWrapper>
+                <Button btnName="수정" onClick={() => setIsEditing(true)} />
+                <Button btnName="삭제" onClick={clickDeleteBtn} />
+              </BtnWrapper>
+            )}
           </>
         )}
       </DetailFanLetterItemWrapper>
@@ -147,12 +159,6 @@ const Container = styled.div`
   );
 `;
 
-// const HomeBtn = styled.div`
-//   position: absolute;
-//   top: 50px;
-//   left: 70px;
-// `;
-
 const DetailFanLetterItemWrapper = styled.section`
   background-color: transparent;
   border: 1px solid white;
@@ -168,6 +174,7 @@ const UserHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   margin: 30px 30px;
+  user-select: none;
 `;
 
 const UserInfo = styled.div`
@@ -193,6 +200,7 @@ const UserMain = styled.div`
 const ToWhom = styled.p`
   font-size: 23px;
   font-weight: 500;
+  user-select: none;
 `;
 
 const EditContent = styled.textarea`
