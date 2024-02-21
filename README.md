@@ -18,6 +18,10 @@
 
 https://nbc-project-fanletter.vercel.app/
 
+## 🖇️ json-server 배포 링크
+
+https://flash-dog-monkey.glitch.me
+
 ## ⏲️ 개발 기간
 
 - 2024.02.01 ~ 02.05
