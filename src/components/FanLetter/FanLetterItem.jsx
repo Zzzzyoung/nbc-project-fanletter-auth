@@ -34,6 +34,7 @@ const FanLetterItemWrapper = styled.li`
   padding: 20px 50px;
   border: 1px solid white;
   border-radius: 10px;
+  user-select: none;
   cursor: pointer;
 
   &:hover {

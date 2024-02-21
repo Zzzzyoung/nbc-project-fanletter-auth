@@ -14,6 +14,7 @@ const StBtn = styled.button`
   border-radius: 5px;
   font-size: 13px;
   transition: background-color 0.3s ease;
+  user-select: none;
   cursor: pointer;
 
   &:hover {
