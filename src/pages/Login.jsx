@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { __login } from "../redux/modules/authSlice";
 import styled from "styled-components";
 import { toast } from "react-toastify";
-import authApi from "../api/auth";
+import authApi from "../apis/auth";
 
 function Login() {
   const [id, setId] = useState("");
