@@ -2,34 +2,37 @@ import axios from "axios";
 
 const authApi = axios.create({
   baseURL: process.env.REACT_APP_AUTH_SERVER_URL,
+  headers: { "Content-Type": "application/json" },
 });
 
+// 요청을 보내기 전 수행되는 함수
 authApi.interceptors.request.use(
-  // 요청을 보내기 전 수행되는 함수
   function (config) {
-    console.log("인터셉터 요청 성공!");
+    if (config.url.includes("user")) {
+      const accessToken = localStorage.getItem("accessToken");
+
+      if (accessToken) {
+        config.headers["Authorization"] = `Bearer ${accessToken}`;
+      } else {
+        alert("인증이 필요합니다.");
+        return Promise.reject("인증이 필요합니다.");
+      }
+    }
     return config;
   },
 
-  // 오류 요청을 보내기 전 수행되는 함수
   function (error) {
-    console.log("인터셉터 요청 오류!");
-    console.log("error", error);
     return Promise.reject(error);
   }
 );
 
+// 응답을 내보내기 전 수행되는 함수
 authApi.interceptors.response.use(
-  // 응답을 내보내기 전 수행되는 함수
   function (response) {
-    console.log("인터셉트 응답 성공!");
     return response;
   },
 
-  //오류 응답을 내보내기 전 수행되는 함수
   function (error) {
-    console.log("인터셉터 응답 오류!");
-    console.log("error", error);
     return Promise.reject(error);
   }
 );

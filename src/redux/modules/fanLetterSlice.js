@@ -15,13 +15,7 @@ export const __getFanLetter = createAsyncThunk(
   "getFanLetter",
   async (payload, thunkAPI) => {
     try {
-      const accessToken = localStorage.getItem("accessToken");
-      const { data } = await authApi.get("/user", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const { data } = await authApi.get("/user");
 
       if (data.success) {
         const { data } = await fanLetterApi.get("/fanLetters?_sort=-createdAt");
@@ -39,13 +33,7 @@ export const __addFanLetter = createAsyncThunk(
   "addFanLetter",
   async (newFanLetter, thunkAPI) => {
     try {
-      const accessToken = localStorage.getItem("accessToken");
-      const { data } = await authApi.get("/user", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const { data } = await authApi.get("/user");
 
       if (data.success) {
         const { data } = await fanLetterApi.post(
@@ -66,13 +54,7 @@ export const __deleteFanLetter = createAsyncThunk(
   "deleteFanLetter",
   async (id, thunkAPI) => {
     try {
-      const accessToken = localStorage.getItem("accessToken");
-      const { data } = await authApi.get("/user", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const { data } = await authApi.get("/user");
 
       if (data.success) {
         await fanLetterApi.delete(`/fanLetters/${id}`);
@@ -91,13 +73,7 @@ export const __editFanLetter = createAsyncThunk(
   "editFanLetter",
   async ({ id, editedTextArea }, thunkAPI) => {
     try {
-      const accessToken = localStorage.getItem("accessToken");
-      const { data } = await authApi.get("/user", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const { data } = await authApi.get("/user");
 
       if (data.success) {
         await fanLetterApi.patch(`/fanLetters/${id}`, {
@@ -118,13 +94,7 @@ export const __updateFanLetter = createAsyncThunk(
   "updateFanLetter",
   async ({ editingText, editingImg }, thunkAPI) => {
     try {
-      const accessToken = localStorage.getItem("accessToken");
-      const { data } = await authApi.get("/user", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const { data } = await authApi.get("/user");
 
       if (data.success) {
         const userId = localStorage.getItem("userId");
