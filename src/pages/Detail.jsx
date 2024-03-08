@@ -1,27 +1,65 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { formattedCreatedAt } from "util/Date";
 import UserImg from "components/common/UserImg";
 import Button from "components/common/Button";
 import CommonModal from "components/common/CommonModal";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  __getFanLetter,
-  __deleteFanLetter,
-  __editFanLetter,
-} from "../redux/modules/fanLetterSlice";
+import { useSelector } from "react-redux";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getFanLetters } from "apis/queryFunctions";
+import { deleteFanLetter, editFanLetter } from "apis/mutationFunctions";
+import Pending from "../assets/Pending.gif";
 
 function Detail() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { id } = useParams();
   const [isEditing, setIsEditing] = useState(false);
   const [editedTextArea, setEditedTextArea] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const { fanLetters, isLoading } = useSelector((state) => state.fanLetters);
   const myId = useSelector((state) => state.auth.userId);
+
+  // useMutation
+  const queryClient = useQueryClient();
+
+  const deleteFanLetterMutation = useMutation({
+    mutationFn: deleteFanLetter,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["fanLetters"] });
+    },
+  });
+
+  const editFanLetterMutation = useMutation({
+    mutationFn: editFanLetter,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["fanLetters"] });
+    },
+  });
+
+  // useQuery
+  // FanLetter 가져오기
+  const {
+    data: fanLetters,
+    isPending,
+    error,
+  } = useQuery({
+    queryKey: ["fanLetters"],
+    queryFn: getFanLetters,
+  });
+
+  if (isPending)
+    return (
+      <StPending>
+        <img src={Pending} alt="Pending" />
+        잠시만 기다려 주세요.
+      </StPending>
+    );
+  if (error) return <StError>오류가 발생하였습니다.</StError>;
+
+  if (fanLetters.length === 0) {
+    return null;
+  }
 
   // 삭제하기
   // 삭제 모달창 열기
@@ -36,7 +74,7 @@ function Detail() {
 
   // 삭제 모달창 확인
   const confirmDeleteModal = () => {
-    dispatch(__deleteFanLetter(id));
+    deleteFanLetterMutation.mutate(id);
     navigate("/");
     closeModal();
   };
@@ -62,7 +100,7 @@ function Detail() {
 
   // 수정 모달창 확인
   const confirmEditModal = () => {
-    dispatch(__editFanLetter({ id, editedTextArea }));
+    editFanLetterMutation.mutate({ id, editedTextArea });
     setIsEditing(false);
     setEditedTextArea("");
     closeEditModal();
@@ -70,22 +108,6 @@ function Detail() {
 
   // 수정 모달창 취소
   const cancelEditModal = () => closeEditModal();
-
-  useEffect(() => {
-    dispatch(__getFanLetter());
-  }, [dispatch]);
-
-  if (isLoading) {
-    return (
-      <Container>
-        <p>Loading...</p>
-      </Container>
-    );
-  }
-
-  if (fanLetters.length === 0) {
-    return null;
-  }
 
   const { avatar, nickname, createdAt, writedTo, content, userId } =
     fanLetters.find((fanLetter) => fanLetter.id === id);
@@ -239,4 +261,34 @@ const BtnWrapper = styled.footer`
   gap: 10px;
   margin-top: 25px;
   margin-right: 40px;
+`;
+
+const StPending = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 16px;
+  background-image: linear-gradient(
+    to right,
+    #aee1f9,
+    #b3c8ee,
+    #b9afe5,
+    #bd96da
+  );
+
+  & img {
+    width: 80px;
+    height: 80px;
+  }
+`;
+
+const StError = styled.p`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 16px;
 `;

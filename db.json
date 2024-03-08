@@ -71,6 +71,15 @@
       "content": "졸리다 하하",
       "writedTo": "카리나",
       "userId": "jiyoung"
+    },
+    {
+      "id": "efbf3978-93e1-4432-ba7b-cb1eef6a9316",
+      "createdAt": 1709917879531,
+      "nickname": "imjiyoung",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-03-08/738ccbf8-8240-4024-9219-1495a2acd3ff.jpg",
+      "content": "ㅇㅇ",
+      "writedTo": "카리나",
+      "userId": "imjiyoung"
     }
   ]
 }

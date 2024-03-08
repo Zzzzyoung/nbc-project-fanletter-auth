@@ -3,11 +3,11 @@ import { v4 as uuid } from "uuid";
 import styled from "styled-components";
 import Button from "../common/Button";
 import CommonModal from "../common/CommonModal";
-import { useDispatch, useSelector } from "react-redux";
-import { __addFanLetter } from "../../redux/modules/fanLetterSlice";
+import { useSelector } from "react-redux";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addFanLetter } from "apis/mutationFunctions";
 
 function FanLetterForm() {
-  const dispatch = useDispatch();
   const [content, setContent] = useState("");
   const [member, setMember] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,6 +31,16 @@ function FanLetterForm() {
   const openModal = () => setIsModalOpen(true);
   // 제출 모달창 닫기
   const closeModal = () => setIsModalOpen(false);
+
+  // useMutation
+  const queryClient = useQueryClient();
+
+  const addFanLetterMutation = useMutation({
+    mutationFn: addFanLetter,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["fanLetters"] });
+    },
+  });
 
   // 팬레터 제출하기
   const submitFanLetter = (event) => {
@@ -58,7 +68,7 @@ function FanLetterForm() {
       userId,
     };
 
-    dispatch(__addFanLetter(newFanLetter));
+    addFanLetterMutation.mutate(newFanLetter);
     setContent("");
     setMember("");
     closeModal();

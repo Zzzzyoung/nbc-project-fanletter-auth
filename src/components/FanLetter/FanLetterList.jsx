@@ -1,21 +1,36 @@
 import FanLetterItem from "./FanLetterItem";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { __getFanLetter } from "../../redux/modules/fanLetterSlice";
+import { useSelector } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
+import { getFanLetters } from "apis/queryFunctions";
+import Pending from "../../assets/Pending.gif";
 
 function FanLetterList() {
-  const dispatch = useDispatch();
   const selectedMember = useSelector((state) => state.member);
-  const fanLetters = useSelector((state) => state.fanLetters.fanLetters);
+
+  // useQuery
+  // FanLetter 가져오기
+  const {
+    data: fanLetters,
+    isPending,
+    error,
+  } = useQuery({
+    queryKey: ["fanLetters"],
+    queryFn: getFanLetters,
+  });
+
+  if (isPending)
+    return (
+      <StPending>
+        <img src={Pending} alt="Pending" />
+        잠시만 기다려 주세요.
+      </StPending>
+    );
+  if (error) return <StError>오류가 발생하였습니다.</StError>;
 
   const filteredFanLetterItem = fanLetters.filter((fanLetter) => {
     return fanLetter.writedTo === selectedMember;
   });
-
-  useEffect(() => {
-    dispatch(__getFanLetter());
-  }, [dispatch]);
 
   return (
     <FanLetterListWrapper>
@@ -55,4 +70,27 @@ const LetterNone = styled.div`
     font-size: 18px;
     line-height: 1.8;
   }
+`;
+
+const StPending = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 16px;
+
+  & img {
+    width: 80px;
+    height: 80px;
+  }
+`;
+
+const StError = styled.p`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 16px;
 `;
