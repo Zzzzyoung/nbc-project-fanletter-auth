@@ -1,24 +1,15 @@
 import FanLetterItem from "./FanLetterItem";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { useQuery } from "@tanstack/react-query";
-import { getFanLetters } from "hooks/queryFunctions";
 import Pending from "../../assets/Pending.gif";
-import { QUERY_KEYS } from "hooks/keys.constant";
+import { useGetFanLetters } from "hooks/useQuery";
 
 function FanLetterList() {
   const selectedMember = useSelector((state) => state.member);
 
   // useQuery
   // FanLetter 가져오기
-  const {
-    data: fanLetters,
-    isPending,
-    error,
-  } = useQuery({
-    queryKey: [QUERY_KEYS.FANLETTERS],
-    queryFn: getFanLetters,
-  });
+  const { data: fanLetters, isPending, error } = useGetFanLetters();
 
   if (isPending)
     return (

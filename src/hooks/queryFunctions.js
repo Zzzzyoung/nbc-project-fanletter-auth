@@ -1,6 +1,6 @@
 import fanLetterApi from "../apis/fanLetter";
 
-const getFanLetters = async () => {
+export const getFanLetters = async () => {
   try {
     const { data } = await fanLetterApi.get("/fanLetters?_sort=-createdAt");
     return data;
@@ -9,5 +9,3 @@ const getFanLetters = async () => {
     console.error(error);
   }
 };
-
-export { getFanLetters };

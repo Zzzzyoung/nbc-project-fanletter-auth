@@ -6,11 +6,11 @@ import UserImg from "components/common/UserImg";
 import Button from "components/common/Button";
 import CommonModal from "components/common/CommonModal";
 import { useSelector } from "react-redux";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getFanLetters } from "hooks/queryFunctions";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteFanLetter, editFanLetter } from "hooks/mutationFunctions";
 import Pending from "../assets/Pending.gif";
 import { QUERY_KEYS } from "hooks/keys.constant";
+import { useGetFanLetters } from "hooks/useQuery";
 
 function Detail() {
   const navigate = useNavigate();
@@ -40,14 +40,7 @@ function Detail() {
 
   // useQuery
   // FanLetter 가져오기
-  const {
-    data: fanLetters,
-    isPending,
-    error,
-  } = useQuery({
-    queryKey: [QUERY_KEYS.FANLETTERS],
-    queryFn: getFanLetters,
-  });
+  const { data: fanLetters, isPending, error } = useGetFanLetters();
 
   if (isPending)
     return (
