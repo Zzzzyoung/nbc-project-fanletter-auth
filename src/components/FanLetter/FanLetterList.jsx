@@ -7,7 +7,6 @@ import { useGetFanLetters } from "hooks/useQuery";
 function FanLetterList() {
   const selectedMember = useSelector((state) => state.member);
 
-  // useQuery
   // FanLetter 가져오기
   const { data: fanLetters, isPending, error } = useGetFanLetters();
 

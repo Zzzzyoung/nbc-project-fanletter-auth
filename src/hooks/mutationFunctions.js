@@ -2,7 +2,7 @@
 // import authApi from "./auth";
 import fanLetterApi from "../apis/fanLetter";
 
-const addFanLetter = async (newFanLetter) => {
+export const addFanLetter = async (newFanLetter) => {
   try {
     await fanLetterApi.post("/fanLetters?_sort=-createdAt", newFanLetter);
   } catch (error) {
@@ -11,7 +11,7 @@ const addFanLetter = async (newFanLetter) => {
   }
 };
 
-const deleteFanLetter = async (id) => {
+export const deleteFanLetter = async (id) => {
   try {
     await fanLetterApi.delete(`/fanLetters/${id}`);
   } catch (error) {
@@ -20,7 +20,7 @@ const deleteFanLetter = async (id) => {
   }
 };
 
-const editFanLetter = async ({ id, editedTextArea }) => {
+export const editFanLetter = async ({ id, editedTextArea }) => {
   try {
     await fanLetterApi.patch(`/fanLetters/${id}`, {
       content: editedTextArea,
@@ -65,5 +65,3 @@ const editFanLetter = async ({ id, editedTextArea }) => {
 //     console.error(error);
 //   }
 // };
-
-export { addFanLetter, deleteFanLetter, editFanLetter };
