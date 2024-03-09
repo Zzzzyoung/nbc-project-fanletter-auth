@@ -7,9 +7,10 @@ import Button from "components/common/Button";
 import CommonModal from "components/common/CommonModal";
 import { useSelector } from "react-redux";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getFanLetters } from "apis/queryFunctions";
-import { deleteFanLetter, editFanLetter } from "apis/mutationFunctions";
+import { getFanLetters } from "hooks/queryFunctions";
+import { deleteFanLetter, editFanLetter } from "hooks/mutationFunctions";
 import Pending from "../assets/Pending.gif";
+import { QUERY_KEYS } from "hooks/keys.constant";
 
 function Detail() {
   const navigate = useNavigate();
@@ -26,14 +27,14 @@ function Detail() {
   const deleteFanLetterMutation = useMutation({
     mutationFn: deleteFanLetter,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["fanLetters"] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.FANLETTERS] });
     },
   });
 
   const editFanLetterMutation = useMutation({
     mutationFn: editFanLetter,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["fanLetters"] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.FANLETTERS] });
     },
   });
 
@@ -44,7 +45,7 @@ function Detail() {
     isPending,
     error,
   } = useQuery({
-    queryKey: ["fanLetters"],
+    queryKey: [QUERY_KEYS.FANLETTERS],
     queryFn: getFanLetters,
   });
 

@@ -1,6 +1,6 @@
 // import { toast } from "react-toastify";
 // import authApi from "./auth";
-import fanLetterApi from "./fanLetter";
+import fanLetterApi from "../apis/fanLetter";
 
 const addFanLetter = async (newFanLetter) => {
   try {

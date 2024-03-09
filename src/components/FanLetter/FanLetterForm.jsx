@@ -5,7 +5,8 @@ import Button from "../common/Button";
 import CommonModal from "../common/CommonModal";
 import { useSelector } from "react-redux";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addFanLetter } from "apis/mutationFunctions";
+import { addFanLetter } from "hooks/mutationFunctions";
+import { QUERY_KEYS } from "hooks/keys.constant";
 
 function FanLetterForm() {
   const [content, setContent] = useState("");
@@ -38,7 +39,7 @@ function FanLetterForm() {
   const addFanLetterMutation = useMutation({
     mutationFn: addFanLetter,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["fanLetters"] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.FANLETTERS] });
     },
   });
 

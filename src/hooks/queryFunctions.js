@@ -1,4 +1,4 @@
-import fanLetterApi from "./fanLetter";
+import fanLetterApi from "../apis/fanLetter";
 
 const getFanLetters = async () => {
   try {
