@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { __editProfile } from "../redux/modules/authSlice";
 import styled from "styled-components";
 import { __updateFanLetter } from "../redux/modules/fanLetterSlice";
+// import { useMutation, useQueryClient } from "@tanstack/react-query";
+// import { editProfile } from "apis/mutationFunctions";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -20,6 +22,16 @@ function Profile() {
     setEditingImg(file);
     setSelectedImg(URL.createObjectURL(file)); // 이미지 파일의 로컬 URL 생성
   };
+
+  // useMutation
+  // const queryClient = useQueryClient();
+
+  // const editProfileMutation = useMutation({
+  //   mutationFn: editProfile,
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({ queryKey: ["auth"] });
+  //   },
+  // });
 
   const clickEditDoneBtn = () => {
     if (!editingText && selectedImg === avatar) {
@@ -40,6 +52,7 @@ function Profile() {
       }
 
       dispatch(__editProfile(formData));
+      // editProfileMutation.mutate(formData);
       dispatch(__updateFanLetter({ editingText, editingImg }));
       setIsEditing(false);
       toast.success("프로필 수정이 완료 되었습니다.");

@@ -4,6 +4,8 @@ import { __login } from "../redux/modules/authSlice";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 import authApi from "../apis/auth";
+// import { useMutation, useQueryClient } from "@tanstack/react-query";
+// import { login } from "apis/mutationFunctions";
 
 function Login() {
   const [id, setId] = useState("");
@@ -33,6 +35,16 @@ function Login() {
     setIsNicknameValid(value.length >= 1 && value.length <= 10);
   };
 
+  // useMutation
+  // const queryClient = useQueryClient();
+
+  // const loginMutation = useMutation({
+  //   mutationFn: login,
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({ queryKey: ["auth"] });
+  //   },
+  // });
+
   // 입력값 유효성 검사
   const inputValidCondition = showLogin
     ? !isIdValid || !isPasswordValid
@@ -43,6 +55,7 @@ function Login() {
     e.preventDefault();
 
     if (showLogin) {
+      // loginMutation.mutate({ id, password });
       dispatch(__login({ id, password }));
     } else {
       // 회원가입
